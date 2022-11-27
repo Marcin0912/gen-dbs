@@ -1,0 +1,40 @@
+
+services:
+  mysql5:
+    container_name: mysql
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    env_file:
+      - ./mysql.env
+    volumes:
+         - mysql:/var/lib/mysql
+    networks: 
+      - docker-network
+  redis:
+    container_name: redis
+    image: redis:5.0.5
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis:/data
+    networks:
+      - docker-network
+  mssql:
+    container_name: mssql
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - "1433:1433"
+    env_file:
+      - ./mssql.env
+    volumes:
+      - mssql:/var/opt/mssql
+
+networks:
+  docker-network:
+
+volumes:
+    mysql:
+    redis:
+    mssql:
+
